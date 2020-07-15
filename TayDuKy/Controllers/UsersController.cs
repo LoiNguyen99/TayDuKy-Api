@@ -38,6 +38,19 @@ namespace TayDuKy.Controllers
         }
 
         // GET: api/Users/5
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult> GetCharacter(string id)
+        {
+            var character = await _context.Character.Where(c=> c.UserId == id).ToListAsync();
+
+            if (character == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(character);
+        }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(string id)
         {
