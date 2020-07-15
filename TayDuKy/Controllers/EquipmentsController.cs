@@ -85,6 +85,7 @@ namespace TayDuKy.Controllers
         [HttpPost]
         public async Task<ActionResult<Equipment>> PostEquipment(Equipment equipment)
         {
+            equipment.IsDelete = false;
             _context.Equipment.Add(equipment);
             await _context.SaveChangesAsync();
 
