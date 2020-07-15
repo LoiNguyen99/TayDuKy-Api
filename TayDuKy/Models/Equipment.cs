@@ -14,8 +14,8 @@ namespace TayDuKy.Models
         public int Quantity { get; set; }
         public String Status { get; set; }
 
-        public int CalamityId { get; set; }
+        //public int CalamityId { get; set; }
 
-        public Calamity Calamity { get; set; }
+        //public Calamity Calamity { get; set; }
     }
 }
