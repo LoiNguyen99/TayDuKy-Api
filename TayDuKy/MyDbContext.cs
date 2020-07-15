@@ -27,6 +27,9 @@ namespace TayDuKy
 
             //Chacters
             modelBuilder.Entity<Character>().HasOne(c => c.User).WithMany(u => u.Characters).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.Restrict);
+
+            //CalamityQuipment
+            modelBuilder.Entity<CalamityEquipment>().HasKey(c => new { c.CalamityId, c.EquipmentId });
         }
 
         public DbSet<Models.Role> Role { get; set; }
