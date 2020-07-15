@@ -38,22 +38,41 @@ namespace TayDuKy.Controllers
         }
 
         // GET: api/Users/5
-        [HttpGet("{id}/characters")]
-        public async Task<ActionResult> GetCharacter(string id)
+        [HttpPut("{id}/characters/{cid}")]
+        public async Task<ActionResult> GetCharacter(string id, int cid)
         {
-            if (id == "null")
-            {
-                var charactere = await _context.Character.Where(c => c.UserId == null).ToListAsync();
-                return Ok(charactere);
-            }
-            var character = await _context.Character.Where(c=> c.UserId == id).ToListAsync();
+            Character character = await _context.Character.Where(c=> c.CharacterId == cid).FirstOrDefaultAsync();
 
             if (character == null)
             {
                 return NotFound();
             }
 
-            return Ok(character);
+
+            character.UserId = id;
+            _context.Entry(character).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CharacterExists(cid))
+                {
+                    return NotFound();
+                }
+                else if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+
+            return NoContent();
         }
 
         [HttpGet("{id}")]
@@ -161,6 +180,10 @@ namespace TayDuKy.Controllers
         private bool UserExists(string id)
         {
             return _context.User.Any(e => e.UserId == id);
+        }
+        private bool CharacterExists(int id)
+        {
+            return _context.Character.Any(e => e.cha == id);
         }
     }
 }
