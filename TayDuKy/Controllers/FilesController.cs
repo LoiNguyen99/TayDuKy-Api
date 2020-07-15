@@ -15,7 +15,7 @@ namespace TayDuKy.Controllers
     public class FilesController : ControllerBase
     {
         [HttpPost("images")]
-        public async Task<IActionResult> uploadfile([FromForm] ImageData data)
+        public async Task<IActionResult> uploadfile([FromForm] FileData data)
         {
             Stream fs = data.File.OpenReadStream();
             String result =  await FileServices.getFile(fs, data.Name, data.token);
@@ -28,13 +28,25 @@ namespace TayDuKy.Controllers
             return Created("/",Image);
         }
 
+        [HttpPost("docs")]
+        public async Task<IActionResult> uploadDocs([FromForm] FileData data)
+        {
+            Stream fs = data.File.OpenReadStream();
+            String result = await FileServices.getFile(fs, data.Name, data.token);
+
+            var Image = new
+            {
+                imageUrl = result
+            };
+            return Created("/", Image);
+        }
+
 
     }
 
-    public class ImageData {
+    public class FileData {
         public IFormFile File { get; set; }
         public String Name { get; set; }
         public String token { get; set; }
-
     }
 }

@@ -24,6 +24,9 @@ namespace TayDuKy
 
             //ClamityCharacter
             modelBuilder.Entity<CalamityCharacter>().HasKey(p => new { p.CalamityId, p.CharacterId });
+
+            //Chacters
+            modelBuilder.Entity<Character>().HasOne(c => c.User).WithMany(u => u.Characters).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.Restrict);
         }
 
         public DbSet<Models.Role> Role { get; set; }
@@ -33,6 +36,10 @@ namespace TayDuKy
         public DbSet<TayDuKy.Models.User> User { get; set; }
 
         public DbSet<TayDuKy.Models.Equipment> Equipment { get; set; }
+
+        public DbSet<TayDuKy.Models.Calamity> Calamity { get; set; }
+
+        public DbSet<TayDuKy.Models.Character> Character { get; set; }
 
 
     }

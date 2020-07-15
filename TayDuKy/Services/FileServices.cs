@@ -21,5 +21,18 @@ namespace TayDuKy.Services
             return await task;
 
         }
+
+        public static async Task<String> getDoc(Stream fileStream, String fileName, String apiKey)
+        {
+            var auth = new FirebaseAuthProvider(new FirebaseConfig(apiKey));
+            var login = await auth.SignInAnonymouslyAsync();
+            var task = new Firebase.Storage.FirebaseStorage("tayduky-d785d.appspot.com", new Firebase.Storage.FirebaseStorageOptions
+            {
+                AuthTokenAsyncFactory = () => Task.FromResult(login.FirebaseToken)
+            }).Child("docs").Child(fileName).PutAsync(fileStream);
+
+            return await task;
+
+        }
     }
 }
