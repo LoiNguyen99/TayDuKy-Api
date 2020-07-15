@@ -67,7 +67,6 @@ namespace TayDuKy.Controllers
                 return NotFound();
             }
 
-
             character.UserId = id;
             _context.Entry(character).State = EntityState.Modified;
             try
@@ -199,6 +198,11 @@ namespace TayDuKy.Controllers
         private bool UserExists(string id)
         {
             return _context.User.Any(e => e.UserId == id);
+        }
+
+        private bool CharacterExists(int id)
+        {
+            return _context.Character.Any(e => e.CharacterId == id);
         }
     }
 }
