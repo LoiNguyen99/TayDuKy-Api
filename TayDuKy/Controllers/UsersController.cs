@@ -183,7 +183,7 @@ namespace TayDuKy.Controllers
         }
         private bool CharacterExists(int id)
         {
-            return _context.Character.Any(e => e.cha == id);
+            return _context.Character.Any(e => e.CharacterId == id);
         }
     }
 }
