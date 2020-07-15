@@ -8,7 +8,7 @@ namespace TayDuKy.Models
     public class Equipment
     {
         public int EquipmentId { get; set; }
-        public int EquipmentName { get; set; }
+        public String EquipmentName { get; set; }
         public String Description { get; set; }
         public String ImageUrl { get; set; }
         public int Quantity { get; set; }

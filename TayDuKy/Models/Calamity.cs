@@ -8,7 +8,7 @@ namespace TayDuKy.Models
     public class Calamity
     {
         public int CalamityId { get; set; }
-        public int CalamityName { get; set; }
+        public String CalamityName { get; set; }
         public String Description { get; set; }
         public String FilmingLocation { get; set; }
         public DateTime BeginDate { get; set; }
