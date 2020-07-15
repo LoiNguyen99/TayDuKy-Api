@@ -41,6 +41,11 @@ namespace TayDuKy.Controllers
         [HttpGet("{id}/characters")]
         public async Task<ActionResult> GetCharacter(string id)
         {
+            if (id == "null")
+            {
+                var charactere = await _context.Character.Where(c => c.UserId == null).ToListAsync();
+                return Ok(charactere);
+            }
             var character = await _context.Character.Where(c=> c.UserId == id).ToListAsync();
 
             if (character == null)
