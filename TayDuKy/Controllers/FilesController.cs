@@ -32,13 +32,13 @@ namespace TayDuKy.Controllers
         public async Task<IActionResult> uploadDocs([FromForm] FileData data)
         {
             Stream fs = data.File.OpenReadStream();
-            String result = await FileServices.getFile(fs, data.Name, data.token);
+            String result = await FileServices.getDoc(fs, data.Name, data.token);
 
-            var Image = new
+            var Doc = new
             {
-                imageUrl = result
+                documentUrl = result
             };
-            return Created("/", Image);
+            return Created("/", Doc);
         }
 
 
