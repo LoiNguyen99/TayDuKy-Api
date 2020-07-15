@@ -12,6 +12,7 @@ namespace TayDuKy.Models
         public String Description { get; set; }
         public String ImageUrl { get; set; }
         public int Quantity { get; set; }
+        public bool IsDelete { get; set; }
         public String Status { get; set; }
 
         //public int CalamityId { get; set; }
