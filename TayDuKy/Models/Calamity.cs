@@ -14,8 +14,9 @@ namespace TayDuKy.Models
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public int ShotQuantity { get; set; }
+        public bool IsDelete { get; set; }
 
-          public ICollection<CalamityEquipment> CalamityEquipment { get; set; }
+        public ICollection<CalamityEquipment> CalamityEquipment { get; set; }
         public ICollection<CalamityCharacter> CalamityCharacters { get; set; }
     }
 }

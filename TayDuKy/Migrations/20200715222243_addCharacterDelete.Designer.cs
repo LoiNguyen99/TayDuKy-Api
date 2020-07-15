@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TayDuKy;
 
 namespace TayDuKy.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200715222243_addCharacterDelete")]
+    partial class addCharacterDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,9 +42,6 @@ namespace TayDuKy.Migrations
 
                     b.Property<string>("FilmingLocation")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("bit");
 
                     b.Property<int>("ShotQuantity")
                         .HasColumnType("int");

@@ -23,9 +23,23 @@ namespace TayDuKy.Controllers
 
         // GET: api/Calamities
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Calamity>>> GetCalamity()
+        public async Task<ActionResult<IEnumerable<Calamity>>> GetCalamity(String isDeleted)
         {
-            return await _context.Calamity.ToListAsync();
+            bool isDeletedBool = false;
+            if (isDeleted.ToLower() == "true")
+            {
+                isDeletedBool = true;
+            }
+            else if (isDeleted.ToLower() == "false")
+            {
+                isDeletedBool = false;
+            }
+            return await _context.Calamity.Where(c => c.IsDelete == isDeletedBool)
+                .Include(c => c.CalamityCharacters)
+                    .ThenInclude(cc => cc.Character.User)
+                .Include(c => c.CalamityEquipment)
+                    .ThenInclude(ce => ce.Equipment)
+                .ToListAsync();
         }
 
         // GET: api/Calamities/5
