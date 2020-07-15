@@ -11,6 +11,8 @@ namespace TayDuKy.Models
         public String CharacterName { get; set; }
         public String DocumentUrl { get; set; }
         public String UserId { get; set; }
+
+        public bool IsDelete { get; set; }
         public User User { get; set; }
         public ICollection<CalamityCharacter> CalamityCharacters { get; set; }
     }

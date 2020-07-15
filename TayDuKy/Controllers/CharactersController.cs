@@ -96,7 +96,8 @@ namespace TayDuKy.Controllers
                 return NotFound();
             }
 
-            _context.Character.Remove(character);
+            character.IsDelete = true;
+            _context.Entry(character).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return character;
