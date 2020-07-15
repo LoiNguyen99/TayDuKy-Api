@@ -38,7 +38,7 @@ namespace TayDuKy.Controllers
         }
 
         // GET: api/Users/5
-        [HttpPut("{id}/characters")]
+        [HttpGet("{id}/characters")]
         public async Task<ActionResult> GetCharacter(string id, int cid)
         {
             if (id == "null")
