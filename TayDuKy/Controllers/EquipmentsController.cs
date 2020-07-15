@@ -23,9 +23,14 @@ namespace TayDuKy.Controllers
 
         // GET: api/Equipments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Equipment>>> GetEquipment()
+        public async Task<ActionResult<IEnumerable<Equipment>>> GetEquipment(String isDeleted)
         {
-            return await _context.Equipment.ToListAsync();
+            bool isDeletedBool = false;
+            if(isDeleted.ToLower() =="true")
+            {
+                isDeletedBool = true;
+            }
+            return await _context.Equipment.Where(e => e.IsDelete == isDeletedBool).ToListAsync();
         }
 
         // GET: api/Equipments/5
@@ -90,14 +95,29 @@ namespace TayDuKy.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<Equipment>> DeleteEquipment(int id)
         {
-            var equipment = await _context.Equipment.FindAsync(id);
-            if (equipment == null)
+            Equipment equipment = _context.Equipment.Find(id);
+            if (id != equipment.EquipmentId)
             {
-                return NotFound();
+                return BadRequest();
             }
+            equipment.IsDelete = true;
+            _context.Entry(equipment).State = EntityState.Modified;
 
-            _context.Equipment.Remove(equipment);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EquipmentExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
             return equipment;
         }
