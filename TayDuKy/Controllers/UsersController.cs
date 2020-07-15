@@ -25,7 +25,7 @@ namespace TayDuKy.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUser(String isDeleted)
         {
-            bool isDeletedBool = true;
+            bool isDeletedBool = false;
             if (isDeleted.ToLower() == "true")
             {
                 isDeletedBool = true;

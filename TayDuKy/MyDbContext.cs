@@ -32,6 +32,8 @@ namespace TayDuKy
 
         public DbSet<TayDuKy.Models.User> User { get; set; }
 
+        public DbSet<TayDuKy.Models.Equipment> Equipment { get; set; }
+
 
     }
 }
