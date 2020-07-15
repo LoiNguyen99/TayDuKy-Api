@@ -23,9 +23,18 @@ namespace TayDuKy.Controllers
 
         // GET: api/Users
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUser()
+        public async Task<ActionResult<IEnumerable<User>>> GetAllUser(String isDeleted)
         {
-            return await _context.User.Where(u => u.RoleId == 2).ToListAsync();
+            bool isDeletedBool = true;
+            if (isDeleted.ToLower() == "true")
+            {
+                isDeletedBool = true;
+            }
+            else if (isDeleted.ToLower() == "false")
+            {
+                isDeletedBool = false;
+            }
+            return await _context.User.Where(u => u.RoleId == 2 && u.IsDelete == isDeletedBool).ToListAsync();
         }
 
         // GET: api/Users/5
