@@ -80,6 +80,7 @@ namespace TayDuKy.Controllers
         [HttpPost]
         public async Task<ActionResult<User>> PostUser(User user)
         {
+            user.IsDelete = false;
             _context.User.Add(user);
             try
             {
@@ -104,16 +105,30 @@ namespace TayDuKy.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<User>> DeleteUser(string id)
         {
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
+            User user = _context.User.Find(id);
+            if (id != user.UserId)
             {
-                return NotFound();
+                return BadRequest();
+            }
+            user.IsDelete = true;
+            _context.Entry(user).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
-            _context.User.Remove(user);
-            await _context.SaveChangesAsync();
-
-            return user;
+            return Ok();
         }
 
         private bool UserExists(string id)
