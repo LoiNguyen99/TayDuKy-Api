@@ -25,7 +25,7 @@ namespace TayDuKy.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Character>>> GetCharacter()
         {
-            return await _context.Character.ToListAsync();
+            return await _context.Character.Include(u => u.User).ToListAsync();
         }
 
         // GET: api/Characters/5
