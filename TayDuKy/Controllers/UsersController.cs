@@ -22,6 +22,16 @@ namespace TayDuKy.Controllers
         }
 
         // GET: api/Users
+        [HttpGet("login")]
+        public async Task<ActionResult<User>> Login(String userId, String password)
+        {
+            User user = await _context.User.Where(u => u.UserId == userId && u.Password == password).FirstOrDefaultAsync();
+            user.Password = null;
+            return  user;
+        }
+
+
+        // GET: api/Users
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAllUser(String isDeleted)
         {
