@@ -14,6 +14,7 @@ namespace TayDuKy.Models
         public String Phone { get; set; }
         public String ImageUrl { get; set; }
         public String Gender { get; set; }
+        public String Description { get; set; }
         public bool IsDelete { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
