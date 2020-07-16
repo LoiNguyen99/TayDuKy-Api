@@ -56,6 +56,36 @@ namespace TayDuKy.Controllers
             return calamity;
         }
 
+
+        [HttpGet("{id}/characters")]
+        public async Task<ActionResult<Calamity>> GetCharacter(int id, string isExcept)
+
+        {
+            if (isExcept == null || isExcept != "true")
+            {
+                List<Character> characters = await _context.CalamityCharacter.Include(c => c.Character).Where(c => c.CalamityId == id && c.CharacterId != null).Select(c => c.Character).ToListAsync();
+                return Ok(characters);
+            }
+
+            else if (isExcept.ToLower() == "true")
+            {
+
+                List<CalamityCharacter> calamityCharacters = await _context.CalamityCharacter.Include(c => c.Character).Where(c => c.CalamityId == id).ToListAsync();
+                List<Character> characters = await _context.Character.Where(c => c.IsDelete == false).Include(c => c.User).ToListAsync();
+
+                foreach (CalamityCharacter Ccharacter in calamityCharacters)
+                    characters.Remove(Ccharacter.Character);
+
+                return Ok(characters);
+            }
+            else
+            {
+                return NotFound();
+            }
+
+        }
+
+
         // PUT: api/Calamities/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
