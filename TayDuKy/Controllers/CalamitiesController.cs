@@ -48,7 +48,7 @@ namespace TayDuKy.Controllers
         {
             Calamity calamity = await _context.Calamity
                 .Include(c => c.CalamityCharacters)
-                    .ThenInclude(cc => cc.Character)
+                    .ThenInclude(cc => cc.Character.User)
                 .Include(c => c.CalamityEquipment)
                     .ThenInclude(ce => ce.Equipment)
                 .Where(c => c.CalamityId == id).FirstOrDefaultAsync();
