@@ -45,5 +45,10 @@ namespace TayDuKy
         public DbSet<TayDuKy.Models.Character> Character { get; set; }
 
 
+
+        public DbSet<TayDuKy.Models.CalamityEquipment> CalamityEquipment { get; set; }
+
+
+
     }
 }

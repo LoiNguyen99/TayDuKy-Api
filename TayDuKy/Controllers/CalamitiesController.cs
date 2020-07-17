@@ -90,6 +90,27 @@ namespace TayDuKy.Controllers
 
         }
 
+        //[HttpGet("{id}/equipments")]
+        //public async Task<ActionResult<Calamity>> GetEquipment(int id, string isExcept)
+        //{
+        //    if (isExcept == null && isExcept != "true")
+        //    {
+        //        List<Equipment> equipments = await _context.CalamityEquipment.Include(c => c.Equipment).Where(c => c.CalamityId == id).Select(c => c.Equipment).ToListAsync();
+        //        return Ok(equipments);
+        //    }
+
+        //    else if (isExcept.ToLower() == "true")
+        //    {
+        //        List<Equipment> equipments = await _context.Equipment.Where(c => c.IsDelete == false && c.Quantity > 0).ToListAsync();
+        //        return Ok(equipments);
+        //    }
+        //    else
+        //    {
+        //        return NotFound();
+        //    }
+
+        //}
+
 
         // PUT: api/Calamities/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
