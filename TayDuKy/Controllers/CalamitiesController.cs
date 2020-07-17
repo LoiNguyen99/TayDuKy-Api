@@ -46,7 +46,12 @@ namespace TayDuKy.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Calamity>> GetCalamity(int id)
         {
-            var calamity = await _context.Calamity.FindAsync(id);
+            var calamity = await _context.Calamity
+                .Include(c => c.CalamityCharacters)
+                    .ThenInclude(cc => cc.Character)
+                .Include(c => c.CalamityEquipment)
+                    .ThenInclude(ce => ce.Equipment)
+                .Where(c => c.CalamityId == id).ToListAsync();
 
             if (calamity == null)
             {
