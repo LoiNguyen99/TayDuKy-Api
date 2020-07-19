@@ -129,6 +129,7 @@ namespace TayDuKy.Controllers
 
             User user1 = _context.User.Find(id);
             user.Password = user1.Password;
+            _context.Entry(user1).State = EntityState.Detached;
 
             _context.Entry(user).State = EntityState.Modified;
 
