@@ -17,7 +17,7 @@ namespace TayDuKy.Models
         public String Gender { get; set; }
 
         public String UpdatedBy { get; set; }
-        public DateTime UpadtedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
 
         public String Description { get; set; }
         public bool IsDelete { get; set; }
