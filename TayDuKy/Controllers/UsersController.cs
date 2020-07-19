@@ -49,7 +49,7 @@ namespace TayDuKy.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}/characters")]
-        public async Task<ActionResult> GetCharacter(string id, int cid)
+        public async Task<ActionResult> GetCharacter(string id)
         {
             if (id == "null")
             {
@@ -114,6 +114,23 @@ namespace TayDuKy.Controllers
             }
 
             return user;
+        }
+
+
+        // GET: api/Users/5
+        [HttpGet("{id}/calamities")]
+        public async Task<ActionResult> GetCalamities(string id)
+        {
+            var calamity = await _context.CalamityCharacter
+                .Include(c => c.Character.User).Where(cc => cc.Character.User.UserId == id).Select(cc => cc.Calamity)
+                        .ToListAsync();
+
+            if (calamity == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(calamity);
         }
 
         // PUT: api/Users/5
