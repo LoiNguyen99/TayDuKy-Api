@@ -90,6 +90,10 @@ namespace TayDuKy.Controllers
             {
                 _context.CalamityEquipment.Add(calamityEquipment);
             }
+
+            Equipment equipment = _context.Equipment.Find(calamityEquipment.EquipmentId);
+            equipment.Quantity = equipment.Quantity - calamityEquipment.quantity;
+            _context.Entry(equipment).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
