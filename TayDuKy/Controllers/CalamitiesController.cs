@@ -172,6 +172,41 @@ namespace TayDuKy.Controllers
             return NoContent();
         }
 
+        [HttpDelete("{id}/characters/{chId}")]
+        public async Task<ActionResult<Calamity>> DeleteCharacter(int id, int chId)
+        {
+            var calamityChaharacter = await _context.CalamityCharacter.Where( c => c.CalamityId == id && c.CharacterId == chId).FirstOrDefaultAsync();
+            if (calamityChaharacter == null)
+            {
+                return NotFound();
+            }
+            _context.CalamityCharacter.Remove(calamityChaharacter);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}/equipments/{eId}")]
+        public async Task<ActionResult<Calamity>> DeleteEq(int id, int eId)
+        {
+            var calamityEquipment = await _context.CalamityEquipment.Where(c => c.CalamityId == id && c.EquipmentId == eId).FirstOrDefaultAsync();
+            if (calamityEquipment == null)
+            {
+                return NotFound();
+            }
+            _context.CalamityEquipment.Remove(calamityEquipment);
+
+            int quantity = calamityEquipment.quantity;
+            Equipment equipment = _context.Equipment.Find(eId);
+            equipment.Quantity = equipment.Quantity + quantity;
+            _context.Entry(equipment).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+
         private bool CalamityExists(int id)
         {
             return _context.Calamity.Any(e => e.CalamityId == id);
