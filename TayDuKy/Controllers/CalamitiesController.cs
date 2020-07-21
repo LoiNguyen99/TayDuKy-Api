@@ -165,11 +165,11 @@ namespace TayDuKy.Controllers
             {
                 return NotFound();
             }
-
-            _context.Calamity.Remove(calamity);
+            calamity.IsDelete = true;
+            _context.Entry(calamity).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return calamity;
+            return NoContent();
         }
 
         private bool CalamityExists(int id)
