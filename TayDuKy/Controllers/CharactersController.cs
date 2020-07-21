@@ -32,7 +32,7 @@ namespace TayDuKy.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Character>> GetCharacter(int id)
         {
-            var character = await _context.Character.FindAsync(id);
+            var character = await _context.Character.Include(c => c.User).FirstOrDefaultAsync(c => c.CharacterId == id);
 
             if (character == null)
             {
