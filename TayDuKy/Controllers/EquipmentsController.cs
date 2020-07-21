@@ -23,7 +23,7 @@ namespace TayDuKy.Controllers
 
         // GET: api/Equipments
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Equipment>>> GetEquipment(String isDeleted,bool isAvailable)
+        public async Task<ActionResult<IEnumerable<Equipment>>> GetEquipment(String isDeleted,bool isAvailable, String status)
         {
             bool isDeletedBool = false;
             if(isDeleted.ToLower() =="true")
@@ -38,8 +38,14 @@ namespace TayDuKy.Controllers
             }
             else
             {
-
-                return await _context.Equipment.Where(e => e.IsDelete == isDeletedBool).ToListAsync();
+                if (status == null || status.ToLower() == "all")
+                {
+                    return await _context.Equipment.Where(e => e.IsDelete == isDeletedBool).ToListAsync();
+                }
+                else
+                {
+                    return await _context.Equipment.Where(e => e.IsDelete == isDeletedBool && e.Status == status).ToListAsync();
+                }
             }
         }
 
